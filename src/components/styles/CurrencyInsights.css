@@ -1,0 +1,24 @@
+.CurrencyInsights {
+	
+
+}
+
+.CurrencyInsights__articles {
+		display: grid;
+		grid-gap: 5px 5px;
+		grid-template-columns: minmax(150px, 1fr) minmax(150px, 1fr);
+
+}
+
+.CurrencyInsight {
+	
+	
+	background: white;
+	max-width: 150px; 
+
+
+}
+
+ .CurrencyInsight h2 , .CurrencyInsight small  {
+	color:  rgb(40, 44, 52);
+}

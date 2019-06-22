@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 
  class DateForm extends Component {
 
@@ -12,7 +12,12 @@ import React, { Component, Fragment } from 'react';
 
 	render() {
 		return (
-			<Fragment>Hello DateForm </Fragment>
+			<form className="DateForm" >
+			<h3> Hello DateForm </h3>
+			<input type="text" />
+			<input type="text" />
+			<input type="text" />
+			 </form>
 		);
 	}
 }

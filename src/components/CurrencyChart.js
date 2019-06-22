@@ -1,4 +1,5 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
+import "./styles/CurrencyChart.css";
 
  class CurrencyChart extends Component {
 
@@ -12,7 +13,15 @@ import React, { Component, Fragment } from 'react';
 
 	render() {
 		return (
-			<Fragment>Hello CurrencyChart </Fragment>
+			<section className="CurrencyChart">
+	
+				<h2>Hello CurrencyChart</h2> 
+
+			<canvas className="CurrencyChart__canvas">
+				
+			</canvas>
+
+			</section>
 		);
 	}
 }

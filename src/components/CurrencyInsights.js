@@ -1,4 +1,5 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component} from 'react';
+import "./styles/CurrencyInsights.css";
 
  class CurrencyInsights extends Component {
 
@@ -42,17 +43,44 @@ import React, { Component, Fragment } from 'react';
 		if(this.state.dolarToday){
 		
 				return (
-					<Fragment>
-						Hello CurrencyInsights 
+					<aside className="CurrencyInsights">
+						<p> Hello CurrencyInsights </p> 
 						<h1>${this.state.dolarToday}</h1>
-					</Fragment>
+
+            <section className="CurrencyInsights__articles">
+
+            <article className="CurrencyInsight">
+              <h2>$600</h2>
+              <small>Valor de hoy</small>
+            </article>
+
+            <article className="CurrencyInsight">
+              <h2>$600</h2>
+              <small>Valor Máximo</small>
+            </article>
+
+            <article className="CurrencyInsight">
+              <h2>$600</h2>
+              <small>Valor Promedio</small>
+            </article>
+
+            <article className="CurrencyInsight">
+              <h2>$600</h2>
+              <small>Valor Mínimo</small>
+            </article>
+
+            </section>
+
+
+					</aside>
 				);
 		}
 
 		return (
+		  <section className="CurrencyInsights">
 		 	<p>loading...</p>
+		 	</section>
 		 )
-
 	}
 }
 

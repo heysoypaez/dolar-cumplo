@@ -1,12 +1,29 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .App {
   
+
   text-align: center;
-    background-color: #282c34;
+  background-color: #282c34;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+
   align-items: center;
+  justify-items: center;
+
   justify-content: center;
+  align-content: center;
+
   font-size: calc(10px + 2vmin);
   color: white;
+
+  grid-template-areas: "Header"
+                       "CurrencyChart CurrencyChart CurrencyInsights"
+                       "CurrencyChart CurrencyChart CurrencyInsights" 
+                       "CurrencyChart CurrencyChart CurrencyInsights"
+                       "DateForm DateForm DateForm";
 }
+
