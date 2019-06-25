@@ -10,7 +10,12 @@ import MiniLoader from "./MiniLoader.js";
  		this.state = {
  			dateType: null,
  			form: {
-
+				dayFinal: "",
+				dayStart: "",
+				monthFinal: "",
+				monthStart: "",
+				yearFinal: "",
+				yearStart: ""
  			}
  		}
  	}
@@ -21,6 +26,13 @@ import MiniLoader from "./MiniLoader.js";
  			dateType: event.target.value.toLowerCase()
  		})
  	} 
+
+ 	handleFormSubmit = (event) => {
+
+ 		alert("hey")
+ 		event.preventDefault();
+ 		console.log(this.state)
+ 	}
 
  	handleDateFormChange = (event) => {
  		this.setState({
@@ -183,7 +195,6 @@ import MiniLoader from "./MiniLoader.js";
 					</section>
 
 					<input 
-						onSubmit={this.handleFormSubmit}
 						type="submit" 
 						value="Consultar" 
 						className="DateForm__input-dates__submit"
@@ -240,7 +251,6 @@ import MiniLoader from "./MiniLoader.js";
 					</section>
 
 					<input 
-						onSubmit={this.handleFormSubmit}
 						type="submit" 
 						value="Consultar" 
 						className="DateForm__input-dates__submit"
@@ -280,7 +290,6 @@ import MiniLoader from "./MiniLoader.js";
 					</section>
 
 					<input 
-						onSubmit={this.handleFormSubmit}
 						type="submit" 
 						value="Consultar" 
 						className="DateForm__input-dates__submit"
@@ -298,8 +307,7 @@ import MiniLoader from "./MiniLoader.js";
 
  	componentDidMount = () => {
 
- 		//I use $ to know that it is an element from the DOM
-
+ 		
  	}
 
 	render() {
@@ -307,8 +315,8 @@ import MiniLoader from "./MiniLoader.js";
 		const $inputDates = this.useListByDateType();
 
 		return (
-			<form className="DateForm" >
-				<h3> Hello DateForm </h3>
+			<form className="DateForm" onSubmit={this.handleFormSubmit} >
+				<h3> Coloca el período de fechas que quieres consultar </h3>
 
 				<input 
 					name="dateType" 

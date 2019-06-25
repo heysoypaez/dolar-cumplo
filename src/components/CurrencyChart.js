@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import "./styles/CurrencyChart.css";
+import Chart from "chart.js"
+
+import {AppContext} from "../AppContext.js"
 
  class CurrencyChart extends Component {
 
@@ -22,9 +25,6 @@ import "./styles/CurrencyChart.css";
 
 				const {height: maxHeight, width: maxWidth} = this.state.chart
 
-				const canvas = document.getElementById('currencyChart');
-				const ctx = canvas.getContext('2d');
-
 				const xAxis = {
 					limit: maxWidth
 				}
@@ -33,22 +33,43 @@ import "./styles/CurrencyChart.css";
 					limit: maxHeight
 				}
 
-
-				ctx.fillStyle = 'blue';
-				ctx.fillRect(0, 10, 3, (maxHeight) );		
-
-
-				ctx.fillStyle = 'blue';
-				ctx.fillRect(0, (maxHeight  - 5 ) , (maxWidth) , 5); 	
-
-
-				  ctx.beginPath();
-			    ctx.moveTo(0, yAxis.limit );
-			    ctx.lineTo(100, 75);
-			    ctx.lineTo(300, 25);
-			  	ctx.closePath();
-			    ctx.stroke();
-
+const ctx = document.getElementById('currencyChart').getContext('2d');
+const currencyChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: 'Período seleccionado',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
 
 			}	)(); //Auto-executing function			
 
@@ -60,7 +81,12 @@ import "./styles/CurrencyChart.css";
 	render() {
 		return (
 			<section className="CurrencyChart">
-	
+
+				<AppContext.Consumer>
+					{(context) => {
+						return <h1>{context.state.developer}</h1>
+					}}
+				</AppContext.Consumer>	
 			
 
 			<canvas 
@@ -69,7 +95,6 @@ import "./styles/CurrencyChart.css";
 				width={this.state.chart.width} 
 				height={this.state.chart.height}
 			>
-				
 
 			</canvas>
 

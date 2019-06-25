@@ -13,8 +13,6 @@ import MiniLoader from "./MiniLoader.js";
         today: undefined,
         betweenDates: undefined, 
         values: undefined, // expect Array
-
-
       },
 
       calculations: {
