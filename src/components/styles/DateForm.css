@@ -1,0 +1,12 @@
+.DateForm {
+	grid-area: DateForm;
+	justify-self: center;
+}
+
+.DateForm__input-dates__submit {
+	background-color: black;
+	color: white;
+	padding: 10px 30px;
+	border: 0;
+	cursor: pointer;
+}

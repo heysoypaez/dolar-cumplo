@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import "./styles/CurrencyInsights.css";
+import MiniLoader from "./MiniLoader.js";
 
  class CurrencyInsights extends Component {
 
@@ -106,7 +107,15 @@ import "./styles/CurrencyInsights.css";
 
     fetchDolarBetweenDates = async() => {
 
+        this.setState({
+          loading: true,
+          error: null
+
+        })
+
+
       try {
+
 
         const PREFIX_API = "https://api.sbif.cl/api-sbifv3/recursos_api/";
         const API_KEY = "9c84db4d447c80c74961a72245371245cb7ac15f";
@@ -136,18 +145,32 @@ import "./styles/CurrencyInsights.css";
           dolarData: {
             ...this.state.dolarData,
             betweenDates: response
-          }
+          },
+          loading: false,
+          error: null
         })
 
         return this.state.dolarData.betweenDates
       }
 
       catch(error) {
+       this.setState({
+          loading: false,
+          error: error
+
+        })
         console.error(error)
       }
     }
 
    	fetchData =  async() => {
+
+        this.setState({
+          loading: true,
+          error: null
+
+        })
+
         
           try {
       
@@ -165,13 +188,21 @@ import "./styles/CurrencyInsights.css";
                 ...this.state.dolarData,
 
                 today: response.Dolares[0].Valor
-              }
+              },
+              loading: false,
+              error: null
             })
 
             return this.state.dolarData.today
           }
 
           catch(error) {
+
+            this.setState({
+              loading: false,
+              error: error
+            })
+
             console.error(error)
           }  
     }
@@ -199,11 +230,20 @@ import "./styles/CurrencyInsights.css";
 
 	render() {
 
+    if(this.state.loading) {
+
+      return(
+        <section className="CurrencyInsights">
+         <MiniLoader />
+        </section>
+      )
+    }
+
 		if(this.state.dolarData && this.state.calculations) {
 		
 				return (
 					<aside className="CurrencyInsights">
-						<p> Hello CurrencyInsights </p> 
+						<h3> Insights </h3> 
 
             <section className="CurrencyInsights__articles">
 

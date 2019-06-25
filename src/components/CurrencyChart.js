@@ -61,7 +61,7 @@ import "./styles/CurrencyChart.css";
 		return (
 			<section className="CurrencyChart">
 	
-				<h2>Hello CurrencyChart</h2> 
+			
 
 			<canvas 
 				className="CurrencyChart__canvas"

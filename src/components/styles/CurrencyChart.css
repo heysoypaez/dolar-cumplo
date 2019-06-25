@@ -1,15 +1,15 @@
+.CurrencyChart {
+	grid-area: CurrencyChart;
+}
+
 .CurrencyChart__canvas {
 	background-color: white;
 
-	min-width: 600px;
-	max-width: 80vw;
+	min-width: 400px;
+	max-width: auto;
 
 	min-height: 40vh;
 	max-height: 400px;
-
-	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
 
 	padding: 10px;
 

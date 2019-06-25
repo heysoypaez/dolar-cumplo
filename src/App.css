@@ -5,25 +5,44 @@ body {
 
 .App {
   
-
   text-align: center;
   background-color: #282c34;
   min-height: 100vh;
+  
+  padding: 10px 0;
+
   display: grid;
-
-  align-items: center;
-  justify-items: center;
-
   justify-content: center;
-  align-content: center;
+
+  align-items: start;
+  grid-gap: 10px 5px;
+
 
   font-size: calc(10px + 2vmin);
   color: white;
 
-  grid-template-areas: "Header"
+  grid-template-rows: 5vh minmax(auto,30vh) minmax(auto,30vh) auto;
+
+
+
+  grid-template-areas: "Header Header Header"
                        "CurrencyChart CurrencyChart CurrencyInsights"
-                       "CurrencyChart CurrencyChart CurrencyInsights" 
                        "CurrencyChart CurrencyChart CurrencyInsights"
                        "DateForm DateForm DateForm";
+
+
+}
+
+@media screen and (max-width: 725px) {
+
+.App {
+
+  grid-template-areas: "Header Header"
+                       "CurrencyChart CurrencyChart"
+                       "CurrencyChart CurrencyChart"
+                       "CurrencyInsights CurrencyInsights"
+                       "DateForm DateForm";
+}
+
 }
 

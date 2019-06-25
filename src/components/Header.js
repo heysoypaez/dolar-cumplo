@@ -6,7 +6,7 @@ function Header(props) {
 	
 	return(
 		<section className="Header">
-			Header Testing
+			¿Cuál es el valor del Dólar en Chile hoy?
 		</section>
 	)
 }
