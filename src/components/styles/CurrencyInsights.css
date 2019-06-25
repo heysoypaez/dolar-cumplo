@@ -1,0 +1,49 @@
+.CurrencyInsights {
+	
+	grid-area: CurrencyInsights;	
+	
+
+}
+
+.CurrencyInsights__articles {
+		display: grid;
+		grid-gap: 2px 2px;
+		grid-template-columns: minmax(150px, 1fr);
+		grid-template-rows: minmax(70px, 1fr);
+
+}
+
+@media screen and (max-width: 725px)  {
+
+	.CurrencyInsights__articles {
+			grid-auto-flow: column;
+	}
+	
+}
+
+.CurrencyInsight {
+	
+	padding: 10px;
+	background: white;
+	max-width: 150px; 
+}
+
+.CurrencyInsight h2 {
+	
+	margin: 3px 0;
+	background: white;
+	max-width: 150px; 
+}
+
+
+.CurrencyInsights h3 {
+	
+	margin: 0 auto 5px auto;
+	max-width: 150px; 
+	text-align: center;
+
+}
+
+ .CurrencyInsight h2 , .CurrencyInsight small  {
+	color:  rgb(40, 44, 52);
+}
