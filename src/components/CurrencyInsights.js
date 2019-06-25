@@ -9,11 +9,7 @@ import MiniLoader from "./MiniLoader.js";
 
  		this.state = {
 
-      dolarData: {
-        today: undefined,
-        betweenDates: undefined, 
-        values: undefined, // expect Array
-      },
+      dolarData: this.props.dolarData,
 
       calculations: {
         maxValue: undefined,
@@ -23,32 +19,14 @@ import MiniLoader from "./MiniLoader.js";
 
       loading: false,
       error: null
-
  		}
  	}
 
-  dolarValues = () => {
-
-    return this.state.dolarData.betweenDates.Dolares.map( (elem) => {
-       
-      let {Valor} = elem;
-
-      //I am converting each comma in a dot because JS does not recognize the comma like a float number
-      Valor = Valor.replace("," , "." )
-
-
-
-      return parseFloat(Valor)
-
-    })
-  }
 
   //Calculations
 
-    calculateMaxDolarValue = () => {
+    calculateMaxDolarValue = (values) => {
 
-      // Useful Doc - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max
-      const {values} = this.state.dolarData;
       const maxValue = Math.max(...values);
 
       this.setState({
@@ -61,10 +39,8 @@ import MiniLoader from "./MiniLoader.js";
       return maxValue;
     }
 
-    calculateMinDolarValue = () => {
+    calculateMinDolarValue = (values) => {
 
-      // Useful Doc - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max
-      const {values} = this.state.dolarData;
       const minValue = Math.min(...values);
 
       this.setState({
@@ -77,18 +53,15 @@ import MiniLoader from "./MiniLoader.js";
       return minValue;
     }
 
-
-    calculateAverageDolarValue = () => {
-
-      // Useful Doc - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max
-      const {values} = this.state.dolarData;
+    calculateAverageDolarValue = (values) => {
 
       const total = values.reduce( (acumulator, currentValue) => {
         return acumulator + currentValue;
       })
 
-      const averageValue = total/(values.length)
 
+
+      const averageValue = (total/(values.length) ).toFixed(2);
 
 
       this.setState({
@@ -101,183 +74,65 @@ import MiniLoader from "./MiniLoader.js";
       return averageValue;
     }
 
-  // Fetchs
+    componentDidMount = async() => {
 
-    fetchDolarBetweenDates = async() => {
+      const {values} = this.props.dolarData;
 
-        this.setState({
-          loading: true,
-          error: null
+      if(values) {
 
-        })
-
-
-      try {
-
-
-        const PREFIX_API = "https://api.sbif.cl/api-sbifv3/recursos_api/";
-        const API_KEY = "9c84db4d447c80c74961a72245371245cb7ac15f";
-        
-        const date = {
-
-          start: {
-            day: 15,
-            month: "06",
-            year: 2018          
-          },
-          final: {
-            day: 30,
-            month: "06",
-            year: 2018  
-          }
-        }
-
-        const startingDate = `${date.start.year}/${date.start.month}/dias_i/${date.start.day}`;
-        const finalDate = `${date.final.year}/${date.final.month}/dias_f/${date.final.day}`;
-
-        //Final version
-        const data = await fetch(`${PREFIX_API}dolar/periodo/${startingDate}/${finalDate}?apikey=${API_KEY}&formato=json`);
-        const response = await data.json()
-
-        this.setState({
-          dolarData: {
-            ...this.state.dolarData,
-            betweenDates: response
-          },
-          loading: false,
-          error: null
-        })
-
-        return this.state.dolarData.betweenDates
-      }
-
-      catch(error) {
-       this.setState({
-          loading: false,
-          error: error
-
-        })
-        console.error(error)
-      }
+        await this.calculateAverageDolarValue(values);   
+        await this.calculateMaxDolarValue(values);
+        await this.calculateMinDolarValue(values);
+           
+      }  
     }
 
-   	fetchData =  async() => {
+  	render() {
 
-        this.setState({
-          loading: true,
-          error: null
+      if(this.state.loading) {
 
-        })
-
-        
-          try {
-      
-            const PREFIX_API = "https://api.sbif.cl/api-sbifv3/recursos_api/"
-            const API_KEY = "9c84db4d447c80c74961a72245371245cb7ac15f"
-            let YEAR = 2015
-     
-
-            const data =  await fetch(`${PREFIX_API}dolar/${YEAR}?apikey=${API_KEY}&formato=json`)
-            const response = await data.json()
-
-            this.setState({
-            	dolarData:	{
-
-                ...this.state.dolarData,
-
-                today: response.Dolares[0].Valor
-              },
-              loading: false,
-              error: null
-            })
-
-            return this.state.dolarData.today
-          }
-
-          catch(error) {
-
-            this.setState({
-              loading: false,
-              error: error
-            })
-
-            console.error(error)
-          }  
-    }
-
-  componentDidMount = async() => {
-
-  	await this.fetchData();
-    await this.fetchDolarBetweenDates();
-
-    this.setState({
-
-      dolarData: {
-        ...this.state.dolarData,
-        values: this.dolarValues() 
+        return(
+          <section className="CurrencyInsights">
+           <MiniLoader />
+          </section>
+        )
       }
-    })
+	
+			return (
+				<aside className="CurrencyInsights">
+					<h3> Insights </h3> 
 
+          <section className="CurrencyInsights__articles">
 
-    this.calculateMaxDolarValue();
-    this.calculateMinDolarValue();
-    this.calculateAverageDolarValue();
+          <article className="CurrencyInsight">
+            <h2>${this.state.dolarData.today}</h2>
+            <small>Valor de hoy</small>
+          </article>
 
-    console.log(this.state)
-  }
+          <article className="CurrencyInsight">
+            <h2>${this.state.calculations.maxValue}</h2>
+            <small>Valor Máximo</small>
+          </article>
 
-	render() {
+          <article className="CurrencyInsight">
+            <h2>${this.state.calculations.average}</h2>
+            <small>Valor Promedio</small>
+          </article>
 
-    if(this.state.loading) {
+          <article className="CurrencyInsight">
+            <h2>${this.state.calculations.minValue}</h2>
+            <small>Valor Mínimo</small>
+          </article>
 
-      return(
-        <section className="CurrencyInsights">
-         <MiniLoader />
-        </section>
-      )
+          </section>
+
+				</aside>
+  				);
+  	}
+
+    componentWillUnmout = () => {
+
     }
-
-		if(this.state.dolarData && this.state.calculations) {
-		
-				return (
-					<aside className="CurrencyInsights">
-						<h3> Insights </h3> 
-
-            <section className="CurrencyInsights__articles">
-
-            <article className="CurrencyInsight">
-              <h2>${this.state.dolarData.today}</h2>
-              <small>Valor de hoy</small>
-            </article>
-
-            <article className="CurrencyInsight">
-              <h2>${this.state.calculations.maxValue}</h2>
-              <small>Valor Máximo</small>
-            </article>
-
-            <article className="CurrencyInsight">
-              <h2>${this.state.calculations.average}</h2>
-              <small>Valor Promedio</small>
-            </article>
-
-            <article className="CurrencyInsight">
-              <h2>${this.state.calculations.minValue}</h2>
-              <small>Valor Mínimo</small>
-            </article>
-
-            </section>
-
-
-					</aside>
-				);
-		}
-
-		return (
-		  <section className="CurrencyInsights">
-		 	<p>loading...</p>
-		 	</section>
-		 )
-	}
 }
 
 export default CurrencyInsights;
