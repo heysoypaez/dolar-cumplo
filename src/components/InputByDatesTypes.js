@@ -82,7 +82,8 @@ const InputByDatesTypes = (props) => {
 					<option value="27" />
 					<option value="28" />
 					<option value="29" />
-					<option value="30" />		
+					<option value="30" />	
+					<option value="31" />		
 				</datalist> 
 			),
 		}
